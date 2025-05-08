@@ -35,7 +35,18 @@ Una vez este listo, instalar los iconos de esta libreria de estilos
  npm install @mui/icons-material
 \```
 
+b) Instalacion de librerias importantes para usar la api de google calendar:
 
+gapi-script : entrega un wrapper para usar la api en aplicaciones de react
+google-auth-library:maneja la autenticacion de google
+google apis:bliclioteca oficial de google para interactuar con sus apis
+Comando para instalar librerias:
+
+npm install gapi-script@^1.2.0 google-auth-library@^9.15.1 googleapis@^148.0.0
+
+Para el despliegue de los eventos en formato calendario, se requiere una biblioteca de calendario denominada "react-big-calendar". El comando de instalacion es el siguiente:
+
+npm install react-big-calendar moment moment-timezone
 
 
 ## Uso del proyecto
