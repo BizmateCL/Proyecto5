@@ -1,29 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import EventForm from '../components/EventForm';
 import EventList from '../components/EventList';
-/* global google */
+/* global google */ // Sirve para evitar que ESLint detecte el error de google no definido
+const CLIENT_ID = '697184002533-m9vcjp6t25d2toqshakr0kppf6tfbaem.apps.googleusercontent.com'; // Client ID
 
-const CLIENT_ID = '697184002533-m9vcjp6t25d2toqshakr0kppf6tfbaem.apps.googleusercontent.com';
-const CALENDAR_ID = '4c24f0397b403ea724ab3cb62d234645f18cf133a510b817541bef402f8c2f1c@group.calendar.google.com';
+const CALENDAR_ID = '4c24f0397b403ea724ab3cb62d234645f18cf133a510b817541bef402f8c2f1c@group.calendar.google.com'; // ID del calendario
 const SCOPES = 'https://www.googleapis.com/auth/calendar.events';
-const API_KEY = 'AIzaSyA5rXHOkLc8f--iMQDKWVN-ws12O35e-ww';
+const API_KEY = 'AIzaSyA5rXHOkLc8f--iMQDKWVN-ws12O35e-ww'; 
 
-const AddEvents = () => {
+const CalendarPage = () => {
     const [events, setEvents] = useState([]);
     const [isSignedIn, setIsSignedIn] = useState(false);
     const [token, setToken] = useState(null);
 
     useEffect(() => {
-        // Recuperar el token y el estado de inicio de sesión desde localStorage par evitar problema de cambiar de ventana y perder la sesion.
-        const savedToken = localStorage.getItem('google_token');
-        const savedIsSignedIn = localStorage.getItem('is_signed_in') === 'true';
-
-        if (savedToken && savedIsSignedIn) {
-            setToken(savedToken);
-            setIsSignedIn(true);
-            fetchEvents(savedToken);
-        }
-
         const initializeGIS = () => {
             const client = google.accounts.oauth2.initTokenClient({
                 client_id: CLIENT_ID,
@@ -32,11 +22,6 @@ const AddEvents = () => {
                     if (response.access_token) {
                         setToken(response.access_token);
                         setIsSignedIn(true);
-
-                        // Guardar el token y el estado de inicio de sesión en localStorage
-                        localStorage.setItem('google_token', response.access_token);
-                        localStorage.setItem('is_signed_in', 'true');
-
                         fetchEvents(response.access_token);
                     } else {
                         console.error('Error al obtener el token de acceso:', response);
@@ -73,6 +58,7 @@ const AddEvents = () => {
 
     const addEvent = async (newEvent) => {
         try {
+            // Validar que el evento tenga los campos requeridos
             if (!newEvent.summary || !newEvent.start || !newEvent.end) {
                 throw new Error('El evento debe tener un resumen, una hora de inicio y una hora de fin.');
             }
@@ -103,22 +89,12 @@ const AddEvents = () => {
         }
     };
 
-    const handleSignOut = () => {
-        setIsSignedIn(false);
-        setToken(null);
-
-        // Eliminar el token y el estado de inicio de sesión de localStorage
-        localStorage.removeItem('google_token');
-        localStorage.removeItem('is_signed_in');
-    };
-
     return (
         <div>
-            <h1>Crea eventos en el calendario</h1>
-            <p>Para ingresar un evento debes iniciar sesión con tu cuenta de Google (notificada al desarrollador como usuario de prueba).</p>
+            <h1>Calendario Público</h1>
             {isSignedIn ? (
                 <>
-                    <button onClick={handleSignOut}>Cerrar sesión</button>
+                    <button onClick={() => setIsSignedIn(false)}>Cerrar sesión</button>
                     <EventForm onSubmit={addEvent} />
                     <EventList events={events} />
                 </>
@@ -129,4 +105,4 @@ const AddEvents = () => {
     );
 };
 
-export default AddEvents;
+export default CalendarPage;

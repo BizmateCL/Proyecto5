@@ -12,9 +12,6 @@ dist
 dist-ssr
 *.local
 
-# Ignorar el archivo .env para que no se suba a GitHub
-.env
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -25,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Ignorar el archivo de credenciales
+src/config/service-account.json

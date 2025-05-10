@@ -19,9 +19,6 @@ const pages = [
   {name:'HOME',path : '/'},
   {name:'ADD EVENTS',path : '/AddEvents'},
   {name:'CALENDAR EVENTS',path : '/CalendarEvents'},  
-
-
-
 ];
 
 //const settings = ['Profile', 'Account', 'Dashboard', 'Logout']; //se usaba en avatar
@@ -54,7 +51,7 @@ function NavbarComponent() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -65,7 +62,7 @@ function NavbarComponent() {
               textDecoration: 'none',
             }}
           >
-            CALENDARIO EVENTOS
+            CALENDARIO
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -106,8 +103,8 @@ function NavbarComponent() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            //component={Link}
+            //to = '/'
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -119,12 +116,12 @@ function NavbarComponent() {
               textDecoration: 'none',
             }}
           >
-            CALENDARIO EVENTOS
+            CALENDARIO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                component= {'Link'} 
+                component= {Link} 
                 to={page.path}
                 key={page.name}
                 onClick={handleCloseNavMenu}

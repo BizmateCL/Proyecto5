@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -35,6 +36,11 @@
 
 .card {
   padding: 2em;
+}
+.content-container {
+  padding: 10% ;
+  max-width: 90%; /* Limita el ancho del contenedor */
+
 }
 
 .read-the-docs {
